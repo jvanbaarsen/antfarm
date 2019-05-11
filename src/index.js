@@ -1,10 +1,19 @@
-function component() {
-  const element = document.createElement('div');
+import p5 from 'p5';
+import "p5/lib/addons/p5.dom"
 
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+import Main from "./Main"
 
-  return element;
+const entrypoint = (p5) => {
+  window.p5 = p5
+
+  const main = new Main()
+
+  p5.setup = () => {
+    main.setup()
+  }
+
+  p5.draw = () => {
+    main.draw()
+  }
 }
-
-document.body.appendChild(component());
+new p5(entrypoint)
