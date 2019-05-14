@@ -4,11 +4,11 @@ export default class Ant {
   constructor() {
     this.size = 10
     this.position = this.randomPosition()
-    this.originalPosition = p5.createVector(this.position.x, this.position.y)
     this.color = p5.color(0)
     this.velocity = p5.createVector(0, 0)
     this.acceleration = p5.createVector(0, 0)
-    this.direction = vectorFromAngle(p5.random(2 * p5.PI))
+    this.angle = (p5.random(2 * p5.PI))
+    this.direction = vectorFromAngle(this.angle)
     this.alive = true
     this.food = Math.floor(p5.random(10, 200))
   }
@@ -22,17 +22,18 @@ export default class Ant {
     p5.circle(this.position.x, this.position.y, 10)
     this.acceleration = this.direction
     this.velocity.add(this.acceleration)
-    this.velocity.limit(5)
+    this.velocity.limit(3)
     this.position.add(this.velocity)
+
+    this.angle += p5.random(-1, 1)
+    this.direction = vectorFromAngle(this.angle)
 
     this.resetPosition()
 
-     this.food -= 1
-     if(this.food == 0) {
-       this.alive = false
-     }
-
-
+    this.food -= 1
+    if(this.food == 0) {
+      this.alive = false
+    }
   }
 
   randomPosition() {
@@ -49,6 +50,10 @@ export default class Ant {
 
   resetPosition() {
     if(!this.outOfScreen()) { return }
-    this.position = p5.createVector(this.originalPosition.x, this.originalPosition.y)
+
+    if(this.position.x < 0) { this.position.x = p5.width }
+    if(this.position.x > p5.width) { this.position.x = 0 }
+    if(this.position.y < 0) { this.position.y = p5.height }
+    if(this.position.y > p5.height) { this.position.y = 0}
   }
 }

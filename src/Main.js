@@ -6,7 +6,7 @@ export default class Main {
     p5.createCanvas(800, 400)
     p5.background(this.backgroundColor)
 
-    this.population = new Population(100)
+    this.population = new Population(1000)
   }
 
   update() {
