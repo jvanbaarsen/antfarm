@@ -2,7 +2,7 @@ import { vectorFromAngle } from "./Vector"
 
 export default class Ant {
   constructor() {
-    this.size = 10
+    this.size = 5
     this.position = this.randomPosition()
     this.color = p5.color(0)
     this.velocity = p5.createVector(0, 0)
@@ -19,20 +19,19 @@ export default class Ant {
     }
 
     p5.fill(this.color)
-    p5.circle(this.position.x, this.position.y, 10)
+    p5.circle(this.position.x, this.position.y, this.size)
     this.acceleration = this.direction
     this.velocity.add(this.acceleration)
     this.velocity.limit(3)
     this.position.add(this.velocity)
 
-    this.angle += p5.random(-1, 1)
-    this.direction = vectorFromAngle(this.angle)
+    this.changeDirection()
 
     this.resetPosition()
 
     this.food -= 1
     if(this.food == 0) {
-      this.alive = false
+      // this.alive = false
     }
   }
 
@@ -55,5 +54,12 @@ export default class Ant {
     if(this.position.x > p5.width) { this.position.x = 0 }
     if(this.position.y < 0) { this.position.y = p5.height }
     if(this.position.y > p5.height) { this.position.y = 0}
+  }
+
+  changeDirection() {
+    if(p5.random(1,100) > 75) {
+      this.angle += p5.random(-1, 1)
+      this.direction = vectorFromAngle(this.angle)
+    }
   }
 }
