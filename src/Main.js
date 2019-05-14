@@ -1,9 +1,16 @@
+import Population from "./Population"
+
 export default class Main {
   setup() {
-    p5.createCanvas(400, 400)
-    p5.background(0)
+    this.backgroundColor = p5.color("#F7FAFC")
+    p5.createCanvas(800, 400)
+    p5.background(this.backgroundColor)
+
+    this.population = new Population(100)
   }
 
-  draw() {
+  update() {
+    p5.background(this.backgroundColor)
+    this.population.update()
   }
 }

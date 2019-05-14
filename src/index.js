@@ -1,4 +1,4 @@
-import p5 from 'p5';
+import * as p5 from 'p5';
 import "p5/lib/addons/p5.dom"
 
 import Main from "./Main"
@@ -13,7 +13,7 @@ const entrypoint = (p5) => {
   }
 
   p5.draw = () => {
-    main.draw()
+    main.update()
   }
 }
 new p5(entrypoint)
